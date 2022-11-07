@@ -4,9 +4,6 @@
 
 init offset = -1
 
-# Check for git
-# add +
-
 ################################################################################
 ## 스타일
 ################################################################################
@@ -219,7 +216,8 @@ style choice_button_text is button_text
 
 style choice_vbox:
     xalign 0.5
-    ypos 405
+    ypos 405     # fix 405
+    
     yanchor -2.5    # menu 위치
 
     spacing gui.choice_spacing
@@ -358,7 +356,11 @@ screen main_menu():
     tag menu
 
     # add gui.main_menu_background
-    add "gui/main_menu.png"
+    add "gui/main_menu0.png"
+    add "gui/main_menu1.png"
+    add "gui/main_menu2.png"
+    add "gui/main_menu3.png"
+
 
     ## This empty frame darkens the main menu.
     frame:

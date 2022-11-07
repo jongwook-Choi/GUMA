@@ -49,6 +49,7 @@ label start:
 
 label chapter1:
 
+    play music "audio/ofeliasdream.mp3"
     # 배경 띄우기
     scene bg room1 with fade
     "때는 0000년 0월 0일 6살인 나는 물가에서 놀다 물에 빠지는 사고를 당했다"
@@ -159,4 +160,6 @@ label result3:
         hide guest3
         show guest3_3 with fade
         guest3 "...?"
+
+    stop music
     
