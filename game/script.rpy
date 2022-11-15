@@ -4,7 +4,6 @@
     image bg room0 = "images/배경/신당0.png"
     image bg room1 = "images/배경/신당1.png"
 
-
     ### 시나리오1 ###
     image guest1_1 = "images/시나리오1/여자_평범.png" # 평범
     image guest1_2 = "images/시나리오1/여자_우울.png" # 우울
@@ -16,7 +15,6 @@
 
     image ghost1_1 = "images/시나리오1/태자귀1.png" # 오른쪽 태자귀
     image ghost1_2 = "images/시나리오1/태자귀2.png" # 왼쪽 아래 태자귀
-
 
     ### 시나리오2 ###
     image guest2_1_1  = "images/시나리오2/부모평범.png"
@@ -68,6 +66,8 @@
     define bunker_2 = 0
     define bunker_3 = 0
     define bunker_4 = 0
+    define bunker_5 = 0
+    define bunker_6 = 0
 
     define end_1 = 0
     define end_2 = 0
@@ -247,8 +247,7 @@ label chpater1:
             hide ghost1_1 
             hide ghost1_2 
 
-            jump chpater2
-            
+            jump chpater2           
 
 label chpater2:
     pause 1
@@ -259,25 +258,90 @@ label chpater2:
     show guest2_2_1 
     show ghost2_2_1_2
 
-    player '얘, 너 요즘 학교 생황에 문제있지?'    
-    player '애가 아픈지 좀 됐지?'
+    menu:
+        '(아이에게 말을 건다) 얘, 너 요즘 학교 생활에 문제있지?':    
+            $ bunker_5 = 0
+        '(어머니에게 말을 건다) 애가 아픈지 좀 됐지?':    
+            $ bunker_5 = 1
 
-    guest2_2 '네…? 저요…?'
+    if bunker_5 == 0:
+        hide guest2_2_1
+        show guest2_2_2
 
-    player '그래, 그럼 너 말고 누가있어?'
+        player '그래, 그럼 너 말고 누가있어?'
 
-    hide guest2_2_1
-    show guest2_2_2 
+        guest2_2 '아, 저는… 그게…'
 
-    guest2_2 '아, 저는… 그게…'
+        guest2_1 '얘, 너는 애가 왜이렇게 답답하니? 무슨 문제가 있으면 있다고 말을 해야 할 거 아냐.'
 
-    guest2_1 '얘, 너는 애가 왜이렇게 답답하니? 무슨 문제가 있으면 있다고 말을 해야 할 거 아냐.'
+        hide guest2_1_1
+        show guest2_1_4
 
-    hide guest2_1_1
-    show guest2_1_4
+        guest2_1 '아, 얘가 긴장해서 그래요. 저희 딸은 학교에서 아무 문제도 없고 성실하게 잘 지내고 있는데 뭐가 문제겠어요.'
+        guest2_1 '저희 딸만큼 조용한 애도 찾기 힘들거에요. 그런데 요즘 성적이 조금 떨어져서…'
 
-    guest2_1 '아, 얘가 긴장해서 그래요. 저희 딸은 학교에서 아무 문제도 없고 성실하게 잘 지내고 있는데 뭐가 문제겠어요.'
-    guest2_1 '저희 딸만큼 조용한 애도 찾기 힘들거에요. 그런데 요즘 성적이 조금 떨어져서…'
+        player '내가 너한테 물어봤어? 얘, 넌 너희 엄마 떼놓고 다시 와.'
+
+    elif bunker_5 == 1:
+        guest2_1 '어머, 어떻게 아셨어요?'
+        guest2_1 '애가 어릴 때부터 몸이 약하긴 했는데 요즘따라 열도 계속 나고 헛것이 보인다고 하질않나…' 
+        guest2_1 '병원에 가도 딱히 방도가 없더라구요. 그래서 혹시나하고 찾아와봤죠.'
+
+        hide guest2_1_1
+        show guest2_1_4
+
+        guest2_1 '…그리고 그것 때문인지 요즘 성적이 좀 많이 떨어졌어요.'
+
+        guest2_2 '… 헛것이 아니에요. 계속 어린 여자애가 내 옆에 붙어있다구요. '
+
+        hide guest2_2_1
+        show guest2_2_2
+
+        guest2_2 '그리고 성적이 떨어진건…'
+
+        hide guest2_1_4
+        show guest2_1_3
+
+        guest2_1 '어디서 말대꾸야.'
+
+        hide guest2_1_3
+        show guest2_1_4
+
+        guest2_1 '저, 그래서… 저희 딸이 공부하는데 집중 할 수 있는 부적 같은 거라도 써주실 수 있는지 싶어서요.'
+        
+        player '지금 그게 문제가 아니야.'
+        
+        guest2_1 '네?'
+
+        player '너희 딸 주변에 귀신들이 한가득이야. 이대로 두면 악귀들이 네 딸 몸 차지하려고 들러붙을거야. 특히 저기 붙어있는 어린여자애가 아주 독해.'
+
+        hide guest2_2_2
+        show guest2_2_3
+        
+
+        guest2_2 '네, 맞아요. 여자애 귀신이…'
+
+        hide guest2_1_4
+        show guest2_1_1
+
+        guest2_1 '쓸데없는 말 하지 말래도.'
+
+        player '굿 받을거야, 안받을거야?'
+
+        menu:
+            '굿을 받는다.':
+            $ bunker_6 = 0:
+
+
+
+
+
+
+
+
+
+
+
 
 
 
