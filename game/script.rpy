@@ -32,10 +32,10 @@
     image guest2_2_4  = "images/시나리오2/여자귀신.png"
     image guest2_2_5  = "images/시나리오2/여자귀신우울_수정.png"
 
-    image ghost2_1 = "images/시나리오2/아이여자귀신.png"
-    image ghost2_2 = "images/시나리오1/아이언니귀신.png"
-    image ghost2_3 = "images/시나리오1/아이언니귀신2.png"
-    image ghost2_4 = "images/시나리오1/아이기타귀신.png"
+    image ghost2_2_1_1 = "images/시나리오2/아이여자귀신.png"
+    image ghost2_2_1_2 = "images/시나리오2/아이언니귀신.png"
+    image ghost2_2_1_3 = "images/시나리오2/아이언니귀신2.png"
+    image ghost2_2_1_4 = "images/시나리오2/아이기타귀신.png"
 
 
     ### 시나리오3 ###
@@ -73,6 +73,8 @@
     define end_2 = 0
     define end_3 = 0
 
+
+    define fade = Fade(1.5, 1.0, 1.5)
 
 
 # 여기에서부터 게임이 시작합니다.
@@ -215,6 +217,13 @@ label chpater1:
             
             player '그래. 쌍둥이를 가질거야.'
 
+            hide ghost1_1 with dissolve
+            hide ghost1_2 with dissolve
+            
+            hide guest1_1 with fade
+
+            jump chpater2
+
         elif bunker_4 == 1:
             player '…그래 네 뜻이 그렇다면 네게 붙은 태자귀들의 천도를 도와주도록하지.'
 
@@ -234,8 +243,51 @@ label chpater1:
 
             # (딸랑이는 방울소리들이 들리면서 태자귀들의 울음소리가 점점 옅어진다.)
 
+            hide guest1_1
+            hide ghost1_1 
+            hide ghost1_2 
+
+            jump chpater2
+            
 
 label chpater2:
+    pause 1
+    play sound "sound/open_door.mp3"
+    pause .5
+
+    show guest2_1_1 
+    show guest2_2_1 
+    show ghost2_2_1_2
+
+    player '얘, 너 요즘 학교 생황에 문제있지?'    
+    player '애가 아픈지 좀 됐지?'
+
+    guest2_2 '네…? 저요…?'
+
+    player '그래, 그럼 너 말고 누가있어?'
+
+    hide guest2_2_1
+    show guest2_2_2 
+
+    guest2_2 '아, 저는… 그게…'
+
+    guest2_1 '얘, 너는 애가 왜이렇게 답답하니? 무슨 문제가 있으면 있다고 말을 해야 할 거 아냐.'
+
+    hide guest2_1_1
+    show guest2_1_4
+
+    guest2_1 '아, 얘가 긴장해서 그래요. 저희 딸은 학교에서 아무 문제도 없고 성실하게 잘 지내고 있는데 뭐가 문제겠어요.'
+    guest2_1 '저희 딸만큼 조용한 애도 찾기 힘들거에요. 그런데 요즘 성적이 조금 떨어져서…'
+
+
+
+
+
+    
+
+
+
+
             
 
 
