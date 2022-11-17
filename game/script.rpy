@@ -1,3 +1,5 @@
+#########rl!@#$!#@$%!@#$%@#$%!@#$^!@#%$^!
+
 init:
 
     ### 배경 ###
@@ -643,7 +645,7 @@ label chpater2:
 
 
 
-        jump chapter3
+        jump chpater3
 
     elif bunker_10 ==1:
 
