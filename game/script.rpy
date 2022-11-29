@@ -1,6 +1,6 @@
 init:
-
     ### 배경 ###
+    image bg black = "images/배경/검은화면.png"
     image bg room0 = "images/배경/신당0.png"
     image bg room1 = "images/배경/신당1.png"
 
@@ -11,7 +11,8 @@ init:
     image 여자놀람 = "images/시나리오1/여자_놀람.png" # 놀람
     image 여자울컥 = "images/시나리오1/여자_울컥.png" # 울컥
     image 여자불쾌 = "images/시나리오1/여자_불쾌.png" # 불쾌
-    image 여자울먹 = "images/시나리오1/여자_울먹.png" #여자울먹
+    image 여자울먹 = "images/시나리오1/여자_울먹.png" # 여자울먹
+    # 여자당황
 
     image 여자태자귀1 = "images/시나리오1/태자귀1.png" # 오른쪽 태자귀
     image 여자태자귀2 = "images/시나리오1/태자귀2.png" # 왼쪽 아래 태자귀
@@ -59,9 +60,7 @@ init:
     define 이원길 = Character("김원길")
 
 
-
-   ###분기 정리 ###
-
+    ###분기 정리 ###
     define bunker_1 = 0 
     define bunker_2 = 0
     define bunker_3 = 0
@@ -77,6 +76,18 @@ init:
 
     define fade = Fade(1.5, 1.0, 1.5)
 
+    # 움직임 관련 함수
+    transform myzoom_main:
+        linear 1.5 zoom 1.03
+        linear 1.5 zoom 1.0
+    
+    transform myzoom_tmp:
+        linear 1 zoom 1.01
+        linear 2 zoom 1.0
+
+    transform myzoom_up:
+        linear 1 zoom 1.3
+        linear 2 zoom 1.0
 
 # 여기에서부터 게임이 시작합니다.
 label start:
@@ -84,10 +95,9 @@ label start:
     pass
 
 label chapter1:
-
     # play music "audio/ofeliasdream.mp3"
     # 배경 띄우기
-    scene bg room1 with fade
+    scene bg black
     "때는 0000년 0월 0일 6살인 나는 물가에서 놀다 물에 빠지는 사고를 당했다"
     "바로 구조되기는 했지만 내가 너무 어렸기 때문이었을까, 나는 잠시 죽어있었다고 한다."
     "그 후 부터 였다. 귓가에 물소리가 들리고 주변 사람들에게 이유없는 불행이 닥치기 시작했다."
@@ -95,6 +105,7 @@ label chapter1:
     "그런 나를 걱정한 부모님들은 나를 데리고 병원을 전전했지만..."
     "병원은 나의 병명을 알아내지 못했다."
     "결국 이런 나를 더 이상 두고 볼 수 없었던 부모님은 나를 무당에게로 데려갔고.."
+    scene bg room1 with dissolve
     "당연한 것처럼, 나는 신을 받아들이는 무당이 되었다."
 
     # scene bg room1
@@ -102,8 +113,8 @@ label chapter1:
 
     play sound "sound/open_door.mp3"
     pause .5
-    scene bg room0
-    show 여자평범 with fade
+    scene bg room0 with fade
+    show 여자평범 with dissolve
     
 
     이혜진 "안녕하세요"
@@ -123,8 +134,6 @@ label chapter1:
             $ bunker_1 = 1
             pass
 
-
-label chpater1:
     if bunker_1 == 0:
         
         hide 여자평범
@@ -135,22 +144,29 @@ label chpater1:
 
         이혜진 "네.. 사실 제가 산부인과 의사에요.."  
 
-        무당 "그래, 딱 봐도 무슨 일로 왔는지 알겠네. 태자귀를 둘이나 달고 말이야. 어디 한 번 니 입으로 말해봐"
+        무당 "그래, 딱 봐도 무슨 일로 왔는지 알겠네. 태자귀를 둘이나 달고 말이야."
+        무당 "어디 한 번 니 입으로 말해봐"
 
         hide 여자놀람
         hide 여자태자귀1
+        hide 여자태자귀2
 
         show 여자평범
         show 여자태자귀1
+        show 여자태자귀2
 
-        이혜진 "사실 아이를 가지고 싶은데, 아이가 생기지 않아요. 남편이랑 오랫동안 노력도 해보고 좋다는 음식, 약 ... 다 해봤는데"  
-        이혜진 "아이가 들어서기는커녕 몸이 점점 나빠져만 가는 것 같은 기분이 들어요. 이런 일이 오래되다 보니 부부사이도 소원해져버렸어요."
+        이혜진 "사실 아이를 가지고 싶은데, 아이가 생기지 않아요." 
+        이혜진 "남편이랑 오랫동안 노력도 해보고 좋다는 음식, 약 ... 다 해봤는데"  
+        이혜진 "아이가 들어서기는커녕 몸이 점점 나빠져만 가는 것 같은 기분이 들어요."
+        이혜진 "이런 일이 오래되다 보니 부부사이도 소원해져버렸어요."
 
         hide 여자평범
         hide 여자태자귀1
+        hide 여자태자귀2
 
         show 여자우울
-        show 여자태자귀1    
+        show 여자태자귀1
+        show 여자태자귀2
 
         이혜진 "제발, 어떻게 하면 아이를 가질 수 있을까요?"
 
@@ -164,8 +180,10 @@ label chpater1:
 
     elif bunker_1 == 1:
         hide 여자평범
-        show 여자놀람
+        hide 여자태자귀1
+        hide 여자태자귀2
 
+        show 여자놀람
         show 여자태자귀1
         show 여자태자귀2
 
@@ -175,18 +193,22 @@ label chpater1:
 
         hide 여자놀람
         hide 여자태자귀1
+        hide 여자태자귀2
 
         show 여자평범
         show 여자태자귀1
+        show 여자태자귀2
 
         이혜진 "사실 아이를 가지고 싶은데, 아이가 생기지 않아요. 남편이랑 오랫동안 노력도 해보고 좋다는 음식, 약 ... 다 해봤는데"  
         이혜진 "아이가 들어서기는커녕 몸이 점점 나빠져만 가는 것 같은 기분이 들어요. 이런 일이 오래되다 보니 부부사이도 소원해져버렸어요."
 
         hide 여자평범
         hide 여자태자귀1
+        hide 여자태자귀2
 
         show 여자우울
-        show 여자태자귀1    
+        show 여자태자귀1
+        show 여자태자귀2
 
         이혜진 "제발, 어떻게 하면 아이를 가질 수 있을까요?"      
 
@@ -197,13 +219,14 @@ label chpater1:
             "너, 남의 아이를 죽인 적 있지":
                 $ bunker_2 = 1
                 
-      
-
-
     if bunker_2 == 0:
         hide 여자우울
+        hide 여자태자귀1
+        hide 여자태자귀2
 
         show 여자불쾌
+        show 여자태자귀1
+        show 여자태자귀2
 
         이혜진 '그게 무슨 말이죠?! 아이를 가지고 싶어 왔다고 했잖아요. 그런데 뭐라구요?'
         이혜진 '뭐 이런 무당이 다있어! 됐어요. 안녕히계세요.'
@@ -213,10 +236,14 @@ label chpater1:
 
 
     elif bunker_2 == 1:
+        hide 여자우울
         hide 여자태자귀1
+        hide 여자태자귀2
+
 
         show 여자놀람
-        show 여자태자귀1 
+        show 여자태자귀1
+        show 여자태자귀2
 
         이혜진 '...'
 
@@ -224,9 +251,11 @@ label chpater1:
 
         hide 여자놀람
         hide 여자태자귀1
+        hide 여자태자귀2
 
         show 여자우울
         show 여자태자귀1 
+        show 여자태자귀2
         
         이혜진 '사실... 전 낙태수술을 집도한 적이 있어요.'
         
@@ -236,21 +265,26 @@ label chpater1:
 
         hide 여자우울
         hide 여자태자귀1
+        hide 여자태자귀2
 
         show 여자울컥
-        show 여자태자귀1 
+        show 여자태자귀1
+        show 여자태자귀2
 
         이혜진 '저는 저만의  선이 있었다고요. '
         이혜진 '물론, 제가 한 일이 마냥 잘 했다는 건 아니에요. 하지만, 하지만…!'
 
         무당 '…그래서, 너한테 붙은 그 귀신들, 뗄거야 말거야.'
-        무당 '네 손으로 뗀 목숨들이 너한테 붙어있어. 그것 때문에 니가 아이를 가지지 못하고 있는거야.'
+        무당 '네 손으로 뗀 목숨들이 너한테 붙어있어.'
+        무당 '그것 때문에 니가 아이를 가지지 못하고 있는거야.'
 
         hide 여자울컥
         hide 여자태자귀1
+        hide 여자태자귀2
 
         show 여자우울
-        show 여자태자귀1             
+        show 여자태자귀1
+        show 여자태자귀2          
 
         이혜진 '저는...'
 
@@ -266,10 +300,10 @@ label chpater1:
         hide 여자태자귀1
         hide 여자태자귀2
 
-        show 여자공포 with fade
+        show 여자공포 
         show 여자태자귀1
         show 여자태자귀2
-        
+        with fade
 
         빙의당한_이혜진 '…엄.. 마, 엄마… 어디있어… '
 
@@ -290,7 +324,7 @@ label chpater1:
         빙의당한_이혜진 '… 왜 나만? 왜 우리들은 태어나지 못 했어? '
         빙의당한_이혜진 '…나는 이해 못 해. 나한텐 이유같은거 필요 없어.'
 
-        #슬픈 표정의 태자귀들이 천천히 사라지는 장면 추가
+        # 슬픈 표정의 태자귀들이 천천히 사라지는 장면 추가
         hide 여자태자귀1 with dissolve
         
         pause 0.5
@@ -298,8 +332,6 @@ label chpater1:
         hide 여자태자귀2 with dissolve
 
         무당 '...'
-
-        # 빙의가 풀린 이혜진이 정신 차림, 평범한 표정 추가
 
         hide 여자공포 with fade 
 
@@ -313,16 +345,15 @@ label chpater1:
 
         무당 '…조만간 아이를 가질 수 있을 거야. '
 
-        # 놀란 표정
+        hide 여자평범
+
+        show 여자울먹
 
         이혜진 '정말인가요?!'
         
         무당 '그래. 쌍둥이를 가질거야.'
 
-        hide 여자태자귀1 with dissolve
-        hide 여자태자귀2 with dissolve
-        
-        hide 여자평범 with fade
+        hide 여자울먹 with fade
 
         jump chpater2
 
@@ -335,7 +366,7 @@ label chpater1:
         hide 여자태자귀1
         hide 여자태자귀2
 
-        show 여자울컥
+        show 여자울먹
         show 여자태자귀1
         show 여자태자귀2
 
@@ -345,16 +376,16 @@ label chpater1:
 
         #(울기 시작하는 태자귀들. 시끄러운 울음소리가 신당을 채우기 시작한다.)
 
-        hide 여자울컥
+        hide 여자울먹
         hide 여자태자귀1
         hide 여자태자귀2
 
         play sound "sound/baby_cry.mp3"
 
-        show 여자평범 with fade
+        show 여자평범
         show 여자태자귀1 
         show 여자태자귀2
-
+        with fade
 
         이혜진 '(당황한 표정 추가) 꺄악…! 이, 이게 무슨 소리죠?!'
 
@@ -371,7 +402,8 @@ label chpater1:
 
         hide 여자평범
         hide 여자태자귀1 
-        hide 여자태자귀2 
+        hide 여자태자귀2
+        with dissolve
 
         jump chpater2           
 
@@ -380,9 +412,10 @@ label chpater2:
     play sound "sound/open_door.mp3"
     pause .5
 
-    show 부모평범 with dissolve
-    show 아이평범 with dissolve
-    show 아이언니귀신 with dissolve
+    show 부모평범
+    show 아이평범
+    show 아이언니귀신
+    with dissolve
 
     menu:
         '(아이에게 말을 건다) 얘, 너 요즘 학교 생활에 문제있지?':    
@@ -392,20 +425,24 @@ label chpater2:
 
     if bunker_5 == 0:
 
-        박진아 '네…? 저요…? '
+        # TODO: 아이 당황 하는 표정 추가 #
 
+        박진아 '네…? 저요…? '
 
         무당 '그래, 그럼 너 말고 누가있어?'
 
         hide 아이평범
-        show 아이우울
+        show 아이우울 at myzoom_tmp
 
         박진아 '아, 저는… 그게…'
 
+        hide 부모평범
+        show 부모분노 at myzoom_main
+
         김희연 '얘, 너는 애가 왜이렇게 답답하니? 무슨 문제가 있으면 있다고 말을 해야 할 거 아냐.'
 
-        hide 부모평범
-        show 부모어색
+        hide 부모분노
+        show 부모어색 at myzoom_tmp
 
         김희연 '아, 얘가 긴장해서 그래요. 저희 딸은 학교에서 아무 문제도 없고 성실하게 잘 지내고 있는데 뭐가 문제겠어요.'
         김희연 '저희 딸만큼 조용한 애도 찾기 힘들거에요. 그런데 요즘 성적이 조금 떨어져서…'
@@ -416,26 +453,26 @@ label chpater2:
 
 
     elif bunker_5 == 1:
+        hide 부모평범
+        show 부모어색 at myzoom_tmp
         김희연 '어머, 어떻게 아셨어요?'
         김희연 '애가 어릴 때부터 몸이 약하긴 했는데 요즘따라 열도 계속 나고 헛것이 보인다고 하질않나…' 
         김희연 '병원에 가도 딱히 방도가 없더라구요. 그래서 혹시나하고 찾아와봤죠.'
-
-        hide 부모평범
-        show 부모어색
-
         김희연 '…그리고 그것 때문인지 요즘 성적이 좀 많이 떨어졌어요.'
+
+        
+        hide 아이평범
+        show 아이우울 at myzoom_tmp
 
         박진아 '… 헛것이 아니에요. 계속 어린 여자애가 내 옆에 붙어있다구요. '
 
-        hide 아이평범
-        show 아이우울 with dissolve
-
         박진아 '그리고 성적이 떨어진건…'
 
-        hide 부모어색
-        show 부모분노
+        hide 부모어색 
+        show 부모분노 at myzoom_main
 
-        김희연 '어디서 말대꾸야.'
+        김희연 '어디서 말대꾸야!'
+        김희연 '지금 엄마가 말하고 있는것 안보이니?'
 
         hide 부모분노
         show 부모어색
@@ -451,44 +488,52 @@ label chpater2:
         무당 '특히 저기 붙어있는 어린여자애가 아주 독해.'
 
         hide 아이우울
-        show 아이놀람
+        show 아이놀람 at myzoom_tmp
         
         박진아 '네, 맞아요. 여자애 귀신이…'
 
         hide 부모어색
-        show 부모평범
+        show 부모분노 at myzoom_tmp
 
         김희연 '쓸데없는 말 하지 말래도.'
 
         무당 '굿 받을거야, 안받을거야?'
 
         hide 아이놀람
-
         show 아이우울
 
         menu:
-            '굿은 무슨요. 성적 올리는 부적이나 한 장 써주세요.':
+            '굿을 받지 않는다.':
                 $ bunker_6 = 1
 
     if bunker_6 == 1:
-        박진아 '저기...!'
+
+        hide 부모분노
+
+        show 부모평범 at myzoom_tmp
+
+        김희연 '굿은 필요 없어요.'
+        김희연 '성적 올리는 부적이나 한 장 써주세요.'
+
+        # 우물쭈물 하는 표정 추가
         menu:
-            '왜 할 말이라도 있어?':
+            '저기...!':
                 $ bunker_7 = 1
-            '잔말 말고 얼른 나가!':
+            '...(아무 말 없이 신당을 나간다.)':
                 $ bunker_7 = 0
 
     if bunker_7 == 1:
 
-        hide 아이놀람
-        show 아이우울
+        hide 아이우울 
+        show 아이우울 at myzoom_tmp
 
+        무당 '왜, 할 말이라도 있어?'
         박진아 '…제 옆에 붙어있다는 어린 여자아이 말인데요…'
 
         hide 부모평범
-        show 부모어색
+        show 부모어색 at myzoom_tmp
 
-        김희연 '얘는 무슨 쓸데없는 소리야!'
+        김희연 '얘는 무슨 쓸데없는 소리야...'
 
         무당 '넌 조용히 해!'
 
@@ -499,28 +544,30 @@ label chpater2:
 
         박진아 '…그런데 그것보다 더 힘든건 애들이 저를…'
 
-    elif bunker_7 == 0:
         menu:
-            '너…! 됐어! 그만 이야기 해! 이리나와, 나가자!':
+            '말을 끊는다.':
                 $ bunker_8 = 1
 
+    elif bunker_7 == 0:
+        "(배경음악이 기괴하게 바뀌며 박진아가 잠시 빙의된 모습을 보이며 불안해 한다.)"
+        "(박진아에게 어린아이가 빙의된 채로 신당을 나간다.)"
+        jump ending
+
+
     if bunker_8 == 1:
-        hide 아이언니귀신
+        hide 부모어색
+        show 부모분노
 
-        박진아 ' (박진아 옆에 있던 여자아이 귀신이 사라져있다.)'
+        김희연 '너…! 됐어! 그만 이야기 해! 이리나와, 나가자!'
+
+        hide 아이언니귀신 with dissolve
 
 
-        hide 부모평범
         hide 아이우울
-
-        show 아이귀신
-        show 아이언니귀신
-        show 아이언니귀신2
-        show 아이기타귀신
-        
+        hide 부모분노
 
         show 부모놀람
-
+        show 아이귀신 at myzoom_up
 
         김희연 '꺄악! (비명 소리를 넣을 예정)'
 
@@ -557,22 +604,21 @@ label chpater2:
     if bunker_9 == 0:
 
         hide 부모놀람
-        show 부모어색
+        show 부모분노 at myzoom_main
 
         김희연 '난 너 같은 애 몰라!' 
 
+        hide 아이귀신
+        show 아이귀신우울 at myzoom_tmp
         박진아 '…엄마는 정말 아무것도 모르는구나?'       
         박진아 '괜찮아. 다시 한 번 기회를 줄 테니까.'
         박진아 '이번엔 날 지우면 안 돼.'
 
-        hide 부모어색
-        hide 아이귀신
-        hide 아이언니귀신
-        hide 아이언니귀신2
-        hide 아이기타귀신
-        hide 아이여자귀신
+        hide 부모분노
+        hide 아이귀신우울 
 
-        jump chpater3
+        jump ending
+
 
     elif bunker_9 == 1:
         hide 부모놀람
@@ -641,9 +687,7 @@ label chpater2:
 
         박진아 '내가 더 잘 할게.'
 
-
-
-        jump chpater3
+        jump ending
 
     elif bunker_10 ==1:
 
@@ -651,7 +695,7 @@ label chpater2:
 
         박진아 '…'
 
-        hide 아이귀신우울
+        hide 아이귀신우울 with dissolve
         show 아이우울 with dissolve
 
         
@@ -666,17 +710,13 @@ label chpater2:
         무당 '조용히 떠나준 네 애한테나 감사해'
         무당 '그리고 여기, 부적하나 써줄 테니 들고 가. 이건 애 말고 너한테 써주는 거야. 몸조심해.'
 
+        # 여기 추가로 저승사자(?) 그림이 있었으면 좋겠음
         김희연 ' …? 감사합니다…'
 
         hide 아이우울
         hide 부모울음
-        hide 아이기타귀신
-        hide 아이언니귀신
-        hide 아이언니귀신2
-
 
         jump chpater3
-
 
 label chpater3:
     
@@ -692,7 +732,7 @@ label chpater3:
 
     
     if bunker_11 == 0:
-
+        hide 남자평범
         show 남자곤란
 
         이원길 '갑자기 무슨 말이세요?'
@@ -707,12 +747,15 @@ label chpater3:
 
         이원길 '잠시, 잠깐만요...'
 
-        hide 남자곤란
-        show 남자변신살해
+        hide 남자곤란 with dissolve
+        show 남자변신살해 with dissolve
+
+        이원길 '...잠깐이면 됩니다.'
 
         jump ending
 
     if bunker_11 == 1:
+        hide 남자평범
         show 남자곤란
         
         이원길 '갑자기 그게 무슨 말이세요?'
@@ -721,17 +764,19 @@ label chpater3:
 
         이원길 '자, 잠시만요. 제발, 사람 하나 살린다치고, 제 말 한 번 만 들어주세요. 네?'
 
-        hide 남자곤란
-        show 남자얼굴변형
+        hide 남자곤란 with dissolve
+        show 남자얼굴변형 with dissolve
 
+        이원길 '안그럼...'
         무당 '... ...'
 
-        hide 남자얼굴변형
+        hide 남자얼굴변형 with dissolve
         show 남자울적
 
         이원길 '...감사합니다. 최근에 잠에 들면 계속 똑같은 귀신이 보입니다.'
         이원길 '…사실 최근도 아닙니다. 보인지는 꽤 됐습니다만, 요즘따라 그 여자가 저를 따라다니면서 저를 불행하게 만들고 있는 것 같습니다.'
-        이원길 '밤에는 매번 가위에 눌려 잠도 제대로 못 자고 몸도 아프고 알 수 없는 사고들이 계속 벌어져서 죽을 뻔 한 적도 있습니다. 제발 도와주세요.'
+        이원길 '밤에는 매번 가위에 눌려 잠도 제대로 못 자고 몸도 아프고 알 수 없는 사고들이 계속 벌어져서 죽을 뻔 한 적도 있습니다.'
+        이원길 '제발 도와주세요.'
 
         무당 '…어디 말이나 해 봐.'
 
@@ -768,7 +813,7 @@ label chpater3:
         이원길 '제 어렸을적과는 다르게 행복한 가정을 꾸리려고 노력했는데!!'
         이원길 '그 무책임한… …!'
 
-        무당 '어디서 목소리를 높여'
+        무당 '어디서 목소리를 높여!'
 
         hide 남자변신
         show 남자평범
@@ -802,6 +847,7 @@ label chpater3:
     elif bunker_12 == 1:
                 
         hide 남자울적
+        hide 남자여자머리카락귀신
 
         show 남자평범
         show 남자여자귀신
@@ -819,7 +865,8 @@ label chpater3:
         무당 '...'
 
         이원길 '...'
-        이원길 '… 제가 욱하는 기질이 좀 있긴했습니다. 하지만 저는 여자친구에게도 충분히 잘 해줬고 태어날 아이에게도 잘 해주려 했습니다.'
+        이원길 '… 제가 욱하는 기질이 좀 있긴했습니다.'
+        이원길 '하지만 저는 여자친구에게도 충분히 잘 해줬고 태어날 아이에게도 잘 해주려 했습니다.'
         이원길 '그게 이렇게 저를 미워할 일인가요?'
 
         hide 남자평범
@@ -827,10 +874,11 @@ label chpater3:
 
         이원길 '게다가 나를 먼저 떠난 건 그년인데!'
         이원길 '내게서 아이도, 가정도 뺏어가놓고선 죽어서는 나를 원망해?!'
-        이원길 '웃기지말라고! (이원길이 신당의 탁자를 내려친다.)'
+        # 탁자 내려치는 소리 추가
+        이원길 '웃기지말라고! (이원길이 신당의 탁자를 내려친다)'
 
-        hide 남자변신
-        show 남자얼굴변형
+        hide 남자변신 with dissolve
+        show 남자얼굴변형 with dissolve
 
         이원길 '빨리, 이 지독한년을 떼어 내. 그래야 나도 새 삶을 살 것 아니야?'
 
@@ -849,7 +897,7 @@ label chpater3:
         hide 남자얼굴변형
 
         show 남자평범
-        show 남자여자왼쪽귀신
+        show 남자여자왼쪽귀신 at myzoom_up
         
         이원길 ' …너도 나를 무시하겠다 이거지?'
         이원길 '됐어. 무당이 너만 있는 것도 아니고… 이딴 년, 살아서도 별 것 아니었는데 죽었다고 별거겠어?'
